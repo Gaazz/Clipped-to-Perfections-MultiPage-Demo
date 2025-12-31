@@ -237,7 +237,7 @@ body {
     position: relative;
     padding: 425px 65px 250px;
     margin-top: -150px;
-    padding-top: 575px;
+   
 }
 
 .hero::before {
@@ -722,8 +722,10 @@ body {
     }
     
     .hero {
-        padding: 100px 20px;
-        min-height: 400px;
+        /* Mobile hero spacing so the sticky header never covers text */
+        margin-top: 0;
+        padding: 160px 20px 90px;
+        min-height: 420px;
     }
     
     .hero h1 {
@@ -740,18 +742,6 @@ body {
     .footer-content {
         grid-template-columns: 1fr;
         gap: 30px;
-    }
-    
-    .footer {
-        padding: 60px 20px 30px !important;
-    }
-    
-    .footer-content > div {
-        text-align: center;
-    }
-    
-    .footer h3 {
-        text-align: center;
     }
     
     .top-bar-content {
@@ -922,25 +912,15 @@ body {
     display: none;
     width: 100%;
     order: 10;
-    background: transparent;
-    border-radius: 0;
+    background: var(--primary-green);
+    border-radius: 12px;
     overflow: hidden;
-    margin-top: 15px;
   }
 
   .header.header--open .main-nav { display: block; }
 
   .main-nav ul { flex-direction: column; width: 100%; }
-  .main-nav a { 
-    padding: 14px 16px; 
-    text-align: left;
-    background: rgba(45, 122, 62, 0.95);
-    border-bottom: 1px solid rgba(255,255,255,0.1);
-  }
-  
-  .main-nav li:first-child a {
-    border-radius: 8px 8px 0 0;
-  }
+  .main-nav a { padding: 14px 16px; text-align: left; }
 
   .main-nav .dropdown-menu {
     position: static !important;
@@ -949,16 +929,6 @@ body {
     box-shadow: none !important;
     border-radius: 0 !important;
     display: none !important;
-    background: transparent !important;
-  }
-  
-  .main-nav .dropdown-menu a {
-    background: rgba(30, 58, 95, 0.95) !important;
-    padding-left: 32px !important;
-  }
-  
-  .main-nav .dropdown.dropdown--open .dropdown-menu {
-    display: block !important;
   }
 
   .dropdown.dropdown--open > .dropdown-menu { display: flex !important; }
@@ -986,21 +956,6 @@ body {
 @media (max-width: 968px) {
   .service-areas-card { padding: 22px 18px; }
   .service-areas-grid { grid-template-columns: 1fr; }
-  
-  /* Fix hero overlap with header on mobile */
-  .hero {
-    margin-top: 0 !important;
-    padding-top: 200px !important;
-    padding-bottom: 100px !important;
-  }
-  
-  .hero h1 {
-    font-size: 36px !important;
-  }
-  
-  .hero p {
-    font-size: 18px !important;
-  }
 }
 
 
@@ -1016,31 +971,6 @@ body {
 
 @media (max-width: 968px) {
   .reviews-cards { grid-template-columns: 1fr; }
-  
-  /* Fix bio/team section on mobile */
-  .section-dark > .container > div[style*="grid-template-columns"] {
-    display: block !important;
-  }
-  
-  .section-dark > .container > div > div {
-    margin-bottom: 40px;
-  }
-  
-  .section-dark h2 {
-    font-size: 28px !important;
-    text-align: center;
-  }
-  
-  .section-dark p {
-    font-size: 16px !important;
-  }
-  
-  .section-dark a {
-    display: block !important;
-    text-align: center;
-    margin: 0 auto !important;
-    max-width: 250px;
-  }
 }
 
 
@@ -1084,4 +1014,84 @@ html, body { overflow-x: hidden; }
 html {
     scroll-behavior: smooth;
     scroll-padding-top: 120px;
+}
+
+
+/* =========================================================
+   Mobile navigation + hero spacing fixes (Dec 2025)
+   ========================================================= */
+
+/* Keep header readable and consistent when the mobile menu is opened */
+@media (max-width: 968px) {
+  .header {
+    background: rgba(45, 122, 62, 0.95) !important;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+
+  /* Prevent any accidental transparency shifts on tap/focus */
+  .header, .header * { -webkit-tap-highlight-color: transparent; }
+  .main-nav a:focus { outline: 2px solid rgba(255,255,255,0.35); outline-offset: -2px; }
+
+  /* Ensure the nav toggle is always visible on internal pages */
+  .nav-toggle { display: inline-flex !important; }
+}
+
+/* Dropdown open/close behaviour is controlled by .dropdown--open on mobile */
+@media (max-width: 968px) {
+  .main-nav .dropdown > a {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .main-nav .dropdown > a::after {
+    content: "▾";
+    font-size: 14px;
+    opacity: 0.85;
+  }
+
+  .dropdown.dropdown--open > a::after {
+    content: "▴";
+  }
+
+  /* Make dropdown items align with the rest of the menu */
+  .main-nav .dropdown-menu a {
+    padding-left: 28px;
+  }
+}
+
+/* About / Our Team section layout */
+.about-grid {
+  display: grid;
+  grid-template-columns: 400px 1fr;
+  gap: 60px;
+  align-items: center;
+}
+
+.about-cta {
+  margin-top: 35px;
+  display: flex;
+  justify-content: flex-start;
+}
+
+@media (max-width: 968px) {
+  .about-grid {
+    grid-template-columns: 1fr;
+    gap: 28px;
+    text-align: center;
+  }
+  .about-grid > div:first-child {
+    display: flex;
+    justify-content: center;
+  }
+  .about-cta {
+    justify-content: center;
+  }
+}
+
+/* About section CTA button alignment */
+.about-btn { display: inline-block; }
+@media (max-width: 968px) {
+  .about-btn { margin: 0 auto; }
 }
