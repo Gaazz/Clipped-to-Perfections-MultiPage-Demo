@@ -742,6 +742,18 @@ body {
         gap: 30px;
     }
     
+    .footer {
+        padding: 60px 20px 30px !important;
+    }
+    
+    .footer-content > div {
+        text-align: center;
+    }
+    
+    .footer h3 {
+        text-align: center;
+    }
+    
     .top-bar-content {
         flex-direction: column;
         text-align: center;
@@ -916,6 +928,11 @@ body {
   }
 
   .header.header--open .main-nav { display: block; }
+  
+  /* Make header more opaque when menu is open on mobile */
+  .header.header--open {
+    background: rgba(45, 122, 62, 0.98) !important;
+  }
 
   .main-nav ul { flex-direction: column; width: 100%; }
   .main-nav a { padding: 14px 16px; text-align: left; }
@@ -927,6 +944,10 @@ body {
     box-shadow: none !important;
     border-radius: 0 !important;
     display: none !important;
+  }
+  
+  .main-nav .dropdown.dropdown--open .dropdown-menu {
+    display: block !important;
   }
 
   .dropdown.dropdown--open > .dropdown-menu { display: flex !important; }
@@ -954,6 +975,21 @@ body {
 @media (max-width: 968px) {
   .service-areas-card { padding: 22px 18px; }
   .service-areas-grid { grid-template-columns: 1fr; }
+  
+  /* Fix hero overlap with header on mobile */
+  .hero {
+    margin-top: 0 !important;
+    padding-top: 200px !important;
+    padding-bottom: 100px !important;
+  }
+  
+  .hero h1 {
+    font-size: 36px !important;
+  }
+  
+  .hero p {
+    font-size: 18px !important;
+  }
 }
 
 
@@ -969,6 +1005,31 @@ body {
 
 @media (max-width: 968px) {
   .reviews-cards { grid-template-columns: 1fr; }
+  
+  /* Fix bio/team section on mobile */
+  .section-dark > .container > div[style*="grid-template-columns"] {
+    display: block !important;
+  }
+  
+  .section-dark > .container > div > div {
+    margin-bottom: 40px;
+  }
+  
+  .section-dark h2 {
+    font-size: 28px !important;
+    text-align: center;
+  }
+  
+  .section-dark p {
+    font-size: 16px !important;
+  }
+  
+  .section-dark a {
+    display: block !important;
+    text-align: center;
+    margin: 0 auto !important;
+    max-width: 250px;
+  }
 }
 
 

@@ -265,9 +265,10 @@
         }
         
         .transformation-title {
-            background: linear-gradient(135deg, #2d7a3e 0%, #5cb85c 100%);
+            background: white;
             padding: 20px 25px;
-            color: white;
+            color: #1e3a5f;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
         
         .transformation-title h3 {
@@ -450,8 +451,11 @@
                         <img src="logo.png" alt="Clipped to Perfection">
                     </a>
                 </div>
+        <button class="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="primary-nav">
+          <span class="nav-toggle-bars" aria-hidden="true"></span>
+        </button>
                 
-                <nav class="main-nav">
+                <nav class="main-nav" id="primary-nav">
                     <ul>
                         <li><a href="index.html">HOME</a></li>
                         <li class="dropdown">
@@ -993,5 +997,34 @@
             });
         });
     </script>
+    
+    <script>
+  (function () {
+    const header = document.querySelector('.header');
+    const toggle = document.querySelector('.nav-toggle');
+    const nav = document.getElementById('primary-nav');
+
+    if (header && toggle && nav) {
+      toggle.addEventListener('click', () => {
+        const isOpen = header.classList.toggle('header--open');
+        toggle.setAttribute('aria-expanded', String(isOpen));
+      });
+    }
+
+    // Mobile dropdown support (tap Services to expand)
+    const dropdown = document.querySelector('.main-nav .dropdown');
+    if (dropdown) {
+      const trigger = dropdown.querySelector('a');
+      if (trigger) {
+        trigger.addEventListener('click', (e) => {
+          if (window.matchMedia('(max-width: 968px)').matches) {
+            e.preventDefault();
+            dropdown.classList.toggle('dropdown--open');
+          }
+        });
+      }
+    }
+  })();
+</script>
 </body>
 </html>
