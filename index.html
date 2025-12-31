@@ -433,7 +433,7 @@
       });
     }
 
-    // Mobile dropdown support (tap Services to expand)
+    // Mobile dropdown support (tap Services to expand/collapse)
     const dropdown = document.querySelector('.main-nav .dropdown');
     if (dropdown) {
       const trigger = dropdown.querySelector('a');
@@ -441,10 +441,25 @@
         trigger.addEventListener('click', (e) => {
           if (window.matchMedia('(max-width: 968px)').matches) {
             e.preventDefault();
+            e.stopPropagation();
+            
+            // Toggle the dropdown
+            const isOpen = dropdown.classList.contains('dropdown--open');
             dropdown.classList.toggle('dropdown--open');
+            
+            console.log('Dropdown toggled:', !isOpen ? 'OPENED' : 'CLOSED');
           }
         });
       }
+      
+      // Close dropdown when clicking outside on mobile
+      document.addEventListener('click', (e) => {
+        if (window.matchMedia('(max-width: 968px)').matches) {
+          if (!dropdown.contains(e.target)) {
+            dropdown.classList.remove('dropdown--open');
+          }
+        }
+      });
     }
   })();
 </script>
