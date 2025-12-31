@@ -32,12 +32,12 @@
         <button class="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="primary-nav">
           <span class="nav-toggle-bars" aria-hidden="true"></span>
         </button>
-
-<nav class="main-nav" id="primary-nav">
+                
+                <nav class="main-nav" id="primary-nav">
                     <ul>
                         <li><a href="index.html">HOME</a></li>
                         <li class="dropdown">
-                            <a href="#" class="services-trigger">SERVICES</a>
+                            <a href="#" onclick="return false;">SERVICES</a>
                             <ul class="dropdown-menu">
                                 <li><a href="gallery.html#lawn-care">Lawn Care & Maintenance</a></li>
                                 <li><a href="gallery.html#landscaping">Landscaping</a></li>
@@ -160,7 +160,6 @@
                     </div>
                 </div>
                 
-                <!-- Hours & Service Areas -->
                 <div>
                     <h3 style="color: #5cb85c; margin-bottom: 25px; font-size: 24px;">Hours</h3>
                     <p style="font-size: 18px; font-weight: 600; margin: 0 0 5px 0;">Monday - Friday</p>
@@ -174,23 +173,21 @@
                     </p>
                 </div>
                 
-                <!-- Quick Links & CTA -->
                 <div>
                     <h3 style="color: #5cb85c; margin-bottom: 25px; font-size: 24px;">Quick Links</h3>
                     <ul style="list-style: none; padding: 0; margin: 0 0 30px 0;">
-                        <li style="margin-bottom: 12px;"><a href="index.html" style="color: white; text-decoration: none; font-size: 16px; transition: color 0.3s;">Home</a></li>
-                        <li style="margin-bottom: 12px;"><a href="services.html" style="color: white; text-decoration: none; font-size: 16px; transition: color 0.3s;">Our Services</a></li>
-                        <li style="margin-bottom: 12px;"><a href="gallery.html" style="color: white; text-decoration: none; font-size: 16px; transition: color 0.3s;">Gallery</a></li>
-                        <li style="margin-bottom: 12px;"><a href="contact.html" style="color: white; text-decoration: none; font-size: 16px; transition: color 0.3s;">Contact Us</a></li>
+                        <li style="margin-bottom: 12px;"><a href="index.html" style="color: white; text-decoration: none; font-size: 16px;">Home</a></li>
+                        <li style="margin-bottom: 12px;"><a href="gallery.html" style="color: white; text-decoration: none; font-size: 16px;">Gallery</a></li>
+                        <li style="margin-bottom: 12px;"><a href="gallery.html" style="color: white; text-decoration: none; font-size: 16px;">Gallery</a></li>
+                        <li style="margin-bottom: 12px;"><a href="contact.html" style="color: white; text-decoration: none; font-size: 16px;">Contact Us</a></li>
                     </ul>
                     
                     <a href="contact.html" style="background: #5cb85c; color: white; padding: 14px 30px; border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 16px; display: inline-block; transition: all 0.3s; box-shadow: 0 4px 15px rgba(92,184,92,0.3);">Get Free Estimate</a>
                 </div>
             </div>
             
-            <!-- Footer Bottom -->
-            <div style="text-align: center;">
-                <p style="font-size: 16px; color: rgba(255,255,255,0.8); margin: 0;">&copy; 2024 Clipped to Perfection. All Rights Reserved.</p>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Clipped to Perfection. All Rights Reserved.</p>
             </div>
         </div>
     </footer>
@@ -233,6 +230,49 @@
             e.stopPropagation();
         });
     </script>
-  <script src="js/site-nav.js"></script>
+    
+    <script>
+  (function () {
+    const header = document.querySelector('.header');
+    const toggle = document.querySelector('.nav-toggle');
+    const nav = document.getElementById('primary-nav');
+
+    if (header && toggle && nav) {
+      toggle.addEventListener('click', () => {
+        const isOpen = header.classList.toggle('header--open');
+        toggle.setAttribute('aria-expanded', String(isOpen));
+      });
+    }
+
+    // Mobile dropdown support (tap Services to expand/collapse)
+    const dropdown = document.querySelector('.main-nav .dropdown');
+    if (dropdown) {
+      const trigger = dropdown.querySelector('a');
+      if (trigger) {
+        trigger.addEventListener('click', (e) => {
+          if (window.matchMedia('(max-width: 968px)').matches) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            // Toggle the dropdown
+            const isOpen = dropdown.classList.contains('dropdown--open');
+            dropdown.classList.toggle('dropdown--open');
+            
+            console.log('Dropdown toggled:', !isOpen ? 'OPENED' : 'CLOSED');
+          }
+        });
+      }
+      
+      // Close dropdown when clicking outside on mobile
+      document.addEventListener('click', (e) => {
+        if (window.matchMedia('(max-width: 968px)').matches) {
+          if (!dropdown.contains(e.target)) {
+            dropdown.classList.remove('dropdown--open');
+          }
+        }
+      });
+    }
+  })();
+</script>
 </body>
 </html>

@@ -41,7 +41,7 @@
                     <ul>
                         <li><a href="index.html">HOME</a></li>
                         <li class="dropdown">
-                            <a href="#" class="services-trigger">SERVICES</a>
+                            <a href="#" onclick="return false;">SERVICES</a>
                             <ul class="dropdown-menu">
                                 <li><a href="gallery.html#lawn-care">Lawn Care & Maintenance</a></li>
                                 <li><a href="gallery.html#landscaping">Landscaping</a></li>
@@ -117,7 +117,7 @@
         <!-- Meet the Owner & Team -->
         <section class="section section-dark" style="background: linear-gradient(rgba(30, 58, 95, 0.9), rgba(45, 122, 62, 0.9)), url('images/landscape1.jpg') center/cover; position: relative;">
             <div class="container">
-                <div class="about-grid">
+                <div style="display: grid; grid-template-columns: 400px 1fr; gap: 60px; align-items: center;">
                     <!-- Circular Team Photo -->
                     <div style="text-align: center;">
                         <div style="width: 350px; height: 350px; border-radius: 50%; overflow: hidden; border: 8px solid #5cb85c; box-shadow: 0 10px 30px rgba(0,0,0,0.3); margin: 0 auto;">
@@ -137,7 +137,7 @@
                         <p style="font-size: 18px; line-height: 1.8; color: rgba(255,255,255,0.95); margin-bottom: 30px;">
                             Every member of our crew is trained, dedicated, and shares our commitment to delivering exceptional results on every job. Whether we're maintaining a residential lawn, clearing land for a commercial project, or designing a complete landscape renovation, we bring the same level of professionalism and attention to detail.
                         </p>
-                        <a href="gallery.html" style="background: #5cb85c; color: white; padding: 16px 35px; border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 16px; display: inline-block; box-shadow: 0 4px 15px rgba(92,184,92,0.4); transition: all 0.3s;" class="about-btn">View Our Work</a>
+                        <a href="gallery.html" style="background: #5cb85c; color: white; padding: 16px 35px; border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 16px; display: inline-block; box-shadow: 0 4px 15px rgba(92,184,92,0.4); transition: all 0.3s;">View Our Work</a>
                     </div>
                 </div>
             </div>
@@ -420,8 +420,49 @@
     </script>
 
 
+<script>
+  (function () {
+    const header = document.querySelector('.header');
+    const toggle = document.querySelector('.nav-toggle');
+    const nav = document.getElementById('primary-nav');
 
+    if (header && toggle && nav) {
+      toggle.addEventListener('click', () => {
+        const isOpen = header.classList.toggle('header--open');
+        toggle.setAttribute('aria-expanded', String(isOpen));
+      });
+    }
 
-  <script src="js/site-nav.js"></script>
+    // Mobile dropdown support (tap Services to expand/collapse)
+    const dropdown = document.querySelector('.main-nav .dropdown');
+    if (dropdown) {
+      const trigger = dropdown.querySelector('a');
+      if (trigger) {
+        trigger.addEventListener('click', (e) => {
+          if (window.matchMedia('(max-width: 968px)').matches) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            // Toggle the dropdown
+            const isOpen = dropdown.classList.contains('dropdown--open');
+            dropdown.classList.toggle('dropdown--open');
+            
+            console.log('Dropdown toggled:', !isOpen ? 'OPENED' : 'CLOSED');
+          }
+        });
+      }
+      
+      // Close dropdown when clicking outside on mobile
+      document.addEventListener('click', (e) => {
+        if (window.matchMedia('(max-width: 968px)').matches) {
+          if (!dropdown.contains(e.target)) {
+            dropdown.classList.remove('dropdown--open');
+          }
+        }
+      });
+    }
+  })();
+</script>
+
 </body>
 </html>
